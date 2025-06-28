@@ -8,6 +8,7 @@ int main() {
     rb *T1 = alocaArvore();
     noRB *novoNo;
 
+ //Cuidado com a path do arquivo   
     scanf("%s", nomeArquivo1);
 
     arq = fopen(nomeArquivo1, "r");
