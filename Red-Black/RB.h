@@ -1,7 +1,3 @@
-//
-// Created by Vanessa on 22/05/2025.
-//
-
 #ifndef RB_RB_H
 #define RB_RB_H
 
