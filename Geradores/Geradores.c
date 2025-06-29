@@ -7,6 +7,8 @@
 // Gera um vetor totalmente aleatório;
 //
 int *geraAleatorios(int tam, int semente){
+    FILE* arq;
+    arq = fopen("resultados.txt","r");
     //Alocação dinâmica do vetor;
 	int *vet = (int *) malloc(sizeof(int) * tam);
     if(!vet) return NULL;
@@ -16,6 +18,7 @@ int *geraAleatorios(int tam, int semente){
 
     for(int i = 0; i < tam; i++){
       vet[i] = rand();
+      fscanf(arq, "%d\n",vet[i]);
     }
 
     return vet;
