@@ -8,7 +8,7 @@
 //
 int *geraAleatorios(int tam, int semente){
     FILE* arq;
-    arq = fopen("resultados.txt","r");
+    arq = fopen("Entrada/resultados.txt","r");
     //Alocação dinâmica do vetor;
 	int *vet = (int *) malloc(sizeof(int) * tam);
     if(!vet) return NULL;
