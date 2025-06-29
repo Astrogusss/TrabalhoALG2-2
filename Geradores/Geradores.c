@@ -20,6 +20,7 @@ int *geraAleatorios(int tam, int semente){
       vet[i] = rand();
       fscanf(arq, "%d\n",vet[i]);
     }
+    fclose(arq);
 
     return vet;
 }
