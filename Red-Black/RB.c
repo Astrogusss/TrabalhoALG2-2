@@ -40,7 +40,18 @@ noRB *alocaNo(rb *arv, int chave){
     novoNo->chave = chave;
     return novoNo;
 }
+void setRaiz(rb* arv, noRB* noRaiz){
+    if (arv) {
+        arv->raiz = noRaiz;
+    }
+}
 
+// --- NOVA FUNÇÃO PARA AJUSTAR A COR DA RAIZ ---
+void ajustaRaizPosConversao(rb* arv) {
+    if (arv && arv->raiz) {
+        arv->raiz->cor = 'P'; // A raiz de uma árvore Rubro-Negra é sempre preta.
+    }
+}
 void insereNo(rb *arv, noRB *novoNo){
     if (!arv || !novoNo) return;
 
@@ -329,26 +340,29 @@ noRB* converte234(no234* raiz234, noRB* pai){
         return NULL;
 
     noRB* raizRB = NULL;
-
     int qtdChaves = obtemQtdChaves(raiz234);
     int* chaves = obtemChaves(raiz234);
     no234** filhos = obtemFilhos(raiz234);
 
-    //Nó 2 -> um nó preto
+    // Nó 2 -> um nó preto
     if (qtdChaves == 1){
-        raizRB = alocaNoRB(chaves[0], 'P');
+        raizRB = (noRB*) malloc(sizeof(noRB));
+        raizRB->chave = chaves[0];
+        raizRB->cor = 'P';
         raizRB->pai = pai;
-
         raizRB->esq = converte234(filhos[0], raizRB);
         raizRB->dir = converte234(filhos[1], raizRB);
     }
-
-    //Nó 3 -> um nó preto com filho vermelho à direita
+    // Nó 3 -> um nó preto com filho vermelho à direita
     else if (qtdChaves == 2){
-        raizRB = alocaNoRB(chaves[0], 'P');
+        raizRB = (noRB*) malloc(sizeof(noRB));
+        raizRB->chave = chaves[0];
+        raizRB->cor = 'P';
         raizRB->pai = pai;
 
-        noRB* vermelho = alocaNoRB(chaves[1], 'V');
+        noRB* vermelho = (noRB*) malloc(sizeof(noRB));
+        vermelho->chave = chaves[1];
+        vermelho->cor = 'V';
         vermelho->pai = raizRB;
 
         raizRB->esq = converte234(filhos[0], raizRB);
@@ -357,16 +371,21 @@ noRB* converte234(no234* raiz234, noRB* pai){
         vermelho->esq = converte234(filhos[1], vermelho);
         vermelho->dir = converte234(filhos[2], vermelho);
     }
-
-    //Nó 4 -> um nó preto com dois filhos vermelhos
+    // Nó 4 -> um nó preto com dois filhos vermelhos
     else if (qtdChaves == 3){
-        raizRB = alocaNoRB(chaves[1], 'P');
+        raizRB = (noRB*) malloc(sizeof(noRB));
+        raizRB->chave = chaves[1];
+        raizRB->cor = 'P';
         raizRB->pai = pai;
 
-        noRB* vermelhoEsq = alocaNoRB(chaves[0], 'V');
+        noRB* vermelhoEsq = (noRB*) malloc(sizeof(noRB));
+        vermelhoEsq->chave = chaves[0];
+        vermelhoEsq->cor = 'V';
         vermelhoEsq->pai = raizRB;
 
-        noRB* vermelhoDir = alocaNoRB(chaves[2], 'V');
+        noRB* vermelhoDir = (noRB*) malloc(sizeof(noRB));
+        vermelhoDir->chave = chaves[2];
+        vermelhoDir->cor = 'V';
         vermelhoDir->pai = raizRB;
 
         raizRB->esq = vermelhoEsq;

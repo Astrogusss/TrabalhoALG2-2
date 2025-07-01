@@ -12,8 +12,10 @@ rb *alocaArvore();
 noRB *alocaNo(rb *arv, int chave);
 
 void insereNo(rb *arv, noRB *novoNo);
+void setRaiz(rb* arv, noRB* noRaiz);
 
 int removeNo(rb *arv, int valor);
+void ajustaRaizPosConversao(rb* arv);
 
 void percorrePreOrdem(rb *arv, noRB *aux);
 
