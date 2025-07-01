@@ -1,0 +1,5 @@
+TamanhoAmostra,QuantidadeSplit,AlturaArvore,TotalBlocosOcupados
+100,44,4,48
+1000,512,6,518
+10000,5213,9,5222
+100000,50654,11,50665
