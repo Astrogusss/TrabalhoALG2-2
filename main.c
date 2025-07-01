@@ -1,25 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <windows.h>      // Biblioteca para corrigir a exibição de caracteres no Windows
+#include <windows.h>     
 
 #include "B-Tree/B-Tree.h"
 #include "Red-Black/RB.h"
 
-// Protótipos das funções de menu
+
 void menuArvore234(arvore234* arv234);
 void menuArvoreRB(rb* arvRB);
-void freeArvore234(arvore234* arv); // Protótipo para a função de liberar memória
+
 
 int main() {
-    // Comando para garantir que o terminal do Windows exiba acentos e caracteres especiais
+   
     SetConsoleOutputCP(CP_UTF8);
 
     FILE *arq;
     char nomeArquivo[100];
     int valor;
 
-    // Conforme o PDF, o programa recebe o nome do arquivo de entrada
+    
     printf("Digite o nome do arquivo de entrada (ex: entrada.txt): ");
     scanf("%s", nomeArquivo);
 
@@ -29,33 +29,32 @@ int main() {
         return 1;
     }
 
-    // Aloca a árvore e a preenche com os dados do arquivo
+
     arvore234* arv234 = alocaArvore234();
     while (fscanf(arq, "%d", &valor) != EOF) {
         insereChaveArvore(arv234, valor);
     }
     fclose(arq);
 
-    // Mostra a árvore inicial e o menu
+
     printf("\n--- Árvore 2-3-4 Gerada ---\n");
     imprimeArvore234(arv234);
     printf("\n");
 
     menuArvore234(arv234);
 
-    // É fundamental liberar a memória alocada para a árvore no final do programa
-    // freeArvore234(arv234);
+
 
     return 0;
 }
 
 /**
- * @brief Exibe o menu principal para interação com a Árvore 2-3-4.
+
  */
 void menuArvore234(arvore234* arv234) {
     int opcao, valor;
     
-    // Variáveis para a conversão para Rubro-Negra
+
     rb* arvRB = NULL;
     noRB* raizRB = NULL;
     no234* raiz234 = NULL;
@@ -82,7 +81,7 @@ void menuArvore234(arvore234* arv234) {
                 break;
             
             case 2:
-                // A funcionalidade de remoção agora está ativa
+          
                 printf("Digite o valor para remover: ");
                 scanf("%d", &valor);
                 removeChaveArvore(arv234, valor);
@@ -102,7 +101,7 @@ void menuArvore234(arvore234* arv234) {
 
                 raiz234 = obtemRaiz234(arv234);
                 if (raiz234 && obtemQtdChaves(raiz234) > 0) {
-                    // Estas funções devem estar implementadas nos seus arquivos RB.c e RB.h
+            
                     arvRB = alocaArvore();
                     raizRB = converte234(raiz234, NULL); 
                     setRaiz(arvRB, raizRB);
@@ -112,13 +111,12 @@ void menuArvore234(arvore234* arv234) {
                     percorrePreOrdem(arvRB, retornaRaiz(arvRB));
                     printf("\n");
 
-                    // Inicia o menu da árvore Rubro-Negra, conforme o PDF
                     menuArvoreRB(arvRB);
                 } else {
                     printf("A árvore 2-3-4 está vazia. Não é possível converter.\n\n");
                 }
                 
-                // Força a saída do programa após a conversão, concluindo o fluxo
+
                 opcao = 5;
                 break;
 
@@ -133,9 +131,7 @@ void menuArvore234(arvore234* arv234) {
     } while (opcao != 5);
 }
 
-/**
- * @brief Exibe o menu secundário para interação com a Árvore Rubro-Negra.
- */
+
 void menuArvoreRB(rb* arvRB) {
     int opcao, valor;
     noRB* novoNo = NULL;
@@ -178,7 +174,7 @@ void menuArvoreRB(rb* arvRB) {
                 break;
 
             case 4:
-                // Apenas retorna para o fluxo principal, que irá encerrar o programa
+            
                 return;
 
             default:

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "B-Tree/B-Tree.h"     // Note que o nome do include foi corrigido para B-Tree.h
+#include "B-Tree/B-Tree.h" 
 #include "Geradores/Geradores.h"
 
 void testeDeInsercaoCSV();
@@ -32,7 +32,7 @@ void testeDeInsercaoCSV() {
         printf("--> Testando insercao para %d elementos...\n", tam);
 
         arvore234* arv = alocaArvore234();
-        int* dados = geraAleatorios(tam, time(NULL) + i); // Semente variada
+        int* dados = geraAleatorios(tam, time(NULL) + i);
 
         if (dados == NULL || arv == NULL) {
              printf("    ERRO: Falha de alocacao para o teste de %d elementos.\n", tam);
@@ -43,7 +43,7 @@ void testeDeInsercaoCSV() {
             insereChaveArvore(arv, dados[j]);
         }
 
-        // Usando as novas funções do seu arquivo para obter as métricas
+  
         int altura = calculaAltura234(arv);
         int blocos = obtemQtdNos(obtemRaiz234(arv));
         int splits = obtemQtdSplit(arv);
@@ -51,7 +51,7 @@ void testeDeInsercaoCSV() {
         fprintf(arquivo_csv, "%d,%d,%d,%d\n", tam, splits, altura, blocos);
         
         free(dados);
-        // Lembre-se de criar e chamar uma função para liberar a memória da árvore
+
     }
     fclose(arquivo_csv);
     printf("Testes de insercao finalizados.\n\n");
@@ -73,7 +73,7 @@ void testeDeRemocaoCSV() {
     for (int i = 0; i < num_percentuais; i++) {
         printf("--> Testando remocao de %.0f%%...\n", percentuais[i] * 100);
 
-        // 1. Cria e preenche a árvore com 10.000 elementos
+    
         arvore234* arv = alocaArvore234();
         int* dados = geraAleatorios(TAMANHO_INICIAL, time(NULL) + i);
         if (dados == NULL || arv == NULL) {
@@ -84,13 +84,13 @@ void testeDeRemocaoCSV() {
             insereChaveArvore(arv, dados[j]);
         }
         
-        // 2. Remove a porcentagem especificada de elementos
+      
         int elementos_a_remover = (int)(TAMANHO_INICIAL * percentuais[i]);
         for (int j = 0; j < elementos_a_remover; j++) {
             removeChaveArvore(arv, dados[j]);
         }
 
-        // 3. Coleta e salva as métricas
+
         int rotacoes = obtemQtdRotacoes(arv);
         int merges = obtemQtdMerge(arv);
         int altura_final = calculaAltura234(arv);
@@ -99,7 +99,7 @@ void testeDeRemocaoCSV() {
         fprintf(arquivo_csv, "%.0f%%,%d,%d,%d,%d\n", percentuais[i] * 100, rotacoes, merges, altura_final, blocos_final);
         
         free(dados);
-        // Liberar memória da árvore aqui
+      
     }
     fclose(arquivo_csv);
     printf("Testes de remocao finalizados.\n");
