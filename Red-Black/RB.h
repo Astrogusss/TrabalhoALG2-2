@@ -2,6 +2,8 @@
 #ifndef RB_RB_H
 #define RB_RB_H
 
+#include "../B-Tree/B-Tree.h"
+
 typedef struct RB rb;
 typedef struct NO noRB;
 
@@ -24,5 +26,7 @@ void balanceamentoRemocao(rb *arv, noRB *NoSucessor, noRB *NoPai);
 void rotacaoDireita(rb *arv, noRB *noDesbalanceado);
 
 void rotacaoEsquerda(rb *arv, noRB *noDesbalanceado);
+
+noRB* converte234(no234* raiz234, noRB* pai);
 
 #endif //RB_RB_H

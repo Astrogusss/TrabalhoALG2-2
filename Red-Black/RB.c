@@ -324,3 +324,60 @@ void rotacaoEsquerda(rb *arv, noRB *noDesbalanceado){
     noDesbalanceado->pai = y;
 }
  
+noRB* converte234(no234* raiz234, noRB* pai){
+    if(!raiz234)
+        return NULL;
+
+    noRB* raizRB = NULL;
+
+    int qtdChaves = obtemQtdChaves(raiz234);
+    int* chaves = obtemChaves(raiz234);
+    no234** filhos = obtemFilhos(raiz234);
+
+    //Nó 2 -> um nó preto
+    if (qtdChaves == 1){
+        raizRB = alocaNoRB(chaves[0], 'P');
+        raizRB->pai = pai;
+
+        raizRB->esq = converte234(filhos[0], raizRB);
+        raizRB->dir = converte234(filhos[1], raizRB);
+    }
+
+    //Nó 3 -> um nó preto com filho vermelho à direita
+    else if (qtdChaves == 2){
+        raizRB = alocaNoRB(chaves[0], 'P');
+        raizRB->pai = pai;
+
+        noRB* vermelho = alocaNoRB(chaves[1], 'V');
+        vermelho->pai = raizRB;
+
+        raizRB->esq = converte234(filhos[0], raizRB);
+        raizRB->dir = vermelho;
+
+        vermelho->esq = converte234(filhos[1], vermelho);
+        vermelho->dir = converte234(filhos[2], vermelho);
+    }
+
+    //Nó 4 -> um nó preto com dois filhos vermelhos
+    else if (qtdChaves == 3){
+        raizRB = alocaNoRB(chaves[1], 'P');
+        raizRB->pai = pai;
+
+        noRB* vermelhoEsq = alocaNoRB(chaves[0], 'V');
+        vermelhoEsq->pai = raizRB;
+
+        noRB* vermelhoDir = alocaNoRB(chaves[2], 'V');
+        vermelhoDir->pai = raizRB;
+
+        raizRB->esq = vermelhoEsq;
+        raizRB->dir = vermelhoDir;
+
+        vermelhoEsq->esq = converte234(filhos[0], vermelhoEsq);
+        vermelhoEsq->dir = converte234(filhos[1], vermelhoEsq);
+
+        vermelhoDir->esq = converte234(filhos[2], vermelhoDir);
+        vermelhoDir->dir = converte234(filhos[3], vermelhoDir);
+    }
+
+    return raizRB;
+}

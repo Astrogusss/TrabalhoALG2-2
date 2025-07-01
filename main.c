@@ -1,9 +1,6 @@
-#include "B-Tree/B-Tree.h"
-#include "Red-Black/RB.h"
-#include "Geradores/Geradores.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "B-Tree\B-Tree.h"
+#include "Red-Black\RB.h"
 
-
-//PAULO FAZ AS FUNCOES GERADORAS AQUIIII É RAPIDAO
-//OLHE CADA FUNCAO DO .H PRA TU SE SITUAR EM COMO USAR AS FUNCOES
-//SÓ ATENTE PRA ALOCAR ARVORE 234, FUNCAO DE GERAR NUMEROS ALEATORIOS E A FUNCAO DE CONVERSAO TA NO .H DA RUBRO NEGRA
-//SE PRECISAR DE AJUDA, ME CHAMA
