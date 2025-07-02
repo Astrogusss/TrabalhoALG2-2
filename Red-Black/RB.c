@@ -336,67 +336,89 @@ void rotacaoEsquerda(rb *arv, noRB *noDesbalanceado){
 }
  
 noRB* converte234(no234* raiz234, noRB* pai){
-    if(!raiz234)
-        return NULL;
+    if(raiz234 == NULL) return NULL;
 
-    noRB* raizRB = NULL;
-    int qtdChaves = obtemQtdChaves(raiz234);
+    noRB* RaizRubro = NULL;
+    
     int* chaves = obtemChaves(raiz234);
-    no234** filhos = obtemFilhos(raiz234);
 
-    // Nó 2 -> um nó preto
-    if (qtdChaves == 1){
-        raizRB = (noRB*) malloc(sizeof(noRB));
-        raizRB->chave = chaves[0];
-        raizRB->cor = 'P';
-        raizRB->pai = pai;
-        raizRB->esq = converte234(filhos[0], raizRB);
-        raizRB->dir = converte234(filhos[1], raizRB);
-    }
-    // Nó 3 -> um nó preto com filho vermelho à direita
-    else if (qtdChaves == 2){
-        raizRB = (noRB*) malloc(sizeof(noRB));
-        raizRB->chave = chaves[0];
-        raizRB->cor = 'P';
-        raizRB->pai = pai;
+    no234** filhos = obtemFilhos(raiz234);
+    
+    int quantidadeKey = obtemQtdChaves(raiz234);
+
+    switch (quantidadeKey){
+        case 1:
+        RaizRubro = (noRB*) malloc(sizeof(noRB));
+
+
+        RaizRubro->pai = pai;
+        RaizRubro->cor = 'P';
+        RaizRubro->chave = chaves[0];
+
+        RaizRubro->esq = converte234(filhos[0], RaizRubro);
+        RaizRubro->dir = converte234(filhos[1], RaizRubro);
+        break;
+   
+        case 2:  //quando um nó é preto com vermelho a sua direita
+        RaizRubro = (noRB*) malloc(sizeof(noRB));
+
+
+        RaizRubro->cor = 'P';
+        RaizRubro->pai = pai;
+        RaizRubro->chave = chaves[0];
 
         noRB* vermelho = (noRB*) malloc(sizeof(noRB));
-        vermelho->chave = chaves[1];
+
+
         vermelho->cor = 'V';
-        vermelho->pai = raizRB;
+        vermelho->chave = chaves[1];
 
-        raizRB->esq = converte234(filhos[0], raizRB);
-        raizRB->dir = vermelho;
+        vermelho->pai = RaizRubro;
+        //
+        RaizRubro->esq = converte234(filhos[0], RaizRubro);
 
+        RaizRubro->dir = vermelho;
+        //
         vermelho->esq = converte234(filhos[1], vermelho);
+        
         vermelho->dir = converte234(filhos[2], vermelho);
-    }
-    // Nó 4 -> um nó preto com dois filhos vermelhos
-    else if (qtdChaves == 3){
-        raizRB = (noRB*) malloc(sizeof(noRB));
-        raizRB->chave = chaves[1];
-        raizRB->cor = 'P';
-        raizRB->pai = pai;
+        break;
+
+   
+        case 3: // preto com todos os filhos vermelhos
+        RaizRubro = (noRB*) malloc(sizeof(noRB));
+
+
+        RaizRubro->cor = 'P';
+        RaizRubro->pai = pai;
+        RaizRubro->chave = chaves[1];
 
         noRB* vermelhoEsq = (noRB*) malloc(sizeof(noRB));
-        vermelhoEsq->chave = chaves[0];
+
+
         vermelhoEsq->cor = 'V';
-        vermelhoEsq->pai = raizRB;
+        vermelhoEsq->pai = RaizRubro;
+        vermelhoEsq->chave = chaves[0];
 
         noRB* vermelhoDir = (noRB*) malloc(sizeof(noRB));
-        vermelhoDir->chave = chaves[2];
-        vermelhoDir->cor = 'V';
-        vermelhoDir->pai = raizRB;
 
-        raizRB->esq = vermelhoEsq;
-        raizRB->dir = vermelhoDir;
+
+        vermelhoDir->cor = 'V';
+
+        vermelhoDir->chave = chaves[2];
+        vermelhoDir->pai = RaizRubro;
+
+        RaizRubro->dir = vermelhoDir;
+
+        RaizRubro->esq = vermelhoEsq;
 
         vermelhoEsq->esq = converte234(filhos[0], vermelhoEsq);
         vermelhoEsq->dir = converte234(filhos[1], vermelhoEsq);
 
         vermelhoDir->esq = converte234(filhos[2], vermelhoDir);
         vermelhoDir->dir = converte234(filhos[3], vermelhoDir);
+        break;
+    
     }
-
-    return raizRB;
+    return RaizRubro;
 }
