@@ -7,18 +7,20 @@
 // Gera um vetor totalmente aleatório;
 //
 int *geraAleatorios(int tam, int semente){
-    FILE* arq;
-    arq = fopen("Entrada/resultados.txt","r");
-    //Alocação dinâmica do vetor;
-	int *vet = (int *) malloc(sizeof(int) * tam);
-    if(!vet) return NULL;
+    // Alocação dinâmica do vetor
+    int *vet = (int *) malloc(sizeof(int) * tam);
+    if(!vet) {
+        printf("Erro de alocacao de memoria em geraAleatorios.\n");
+        return NULL;
+    }
 
-    //Preenchimento aleatório;
+    // Define a semente para garantir que os números sejam diferentes
+    // a cada execução (ou os mesmos se a semente for a mesma).
     srand(semente);
 
+    // Preenche o vetor com números aleatórios
     for(int i = 0; i < tam; i++){
-      vet[i] = rand();
-      fscanf(arq, "%d\n",vet[i]);
+      vet[i] = rand(); // Gera um número aleatório
     }
     fclose(arq);
 
