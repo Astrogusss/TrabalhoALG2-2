@@ -43,9 +43,9 @@ void removeChaveNo(no234* no, int chave);
 
 void reparaRemocao(arvore234* arv, no234* noAtual);
 
-no234* emprestaEsquerda(arvore234* arv, no234* pai, int index);
-
 no234* emprestaDireita(arvore234* arv, no234* pai, int index);
+
+no234* emprestaEsquerda(arvore234* arv, no234* pai, int index);
 
 no234* juntaNos(arvore234* arv, no234* pai, int index);
 
@@ -56,20 +56,19 @@ int calculaAltura234(arvore234* arv);
 
 int obtemQtdNos(no234* raiz);
 
+int obtemQtdRotacoes(arvore234* arv);
+
 no234* obtemRaiz234(arvore234* arv);
 
 int obtemQtdSplit(arvore234* arv);
 
 int obtemQtdMerge(arvore234* arv);
 
-int obtemQtdRotacoes(arvore234* arv);
-
 int* obtemChaves(no234* no);
-
-no234** obtemFilhos(no234* no);
 
 int obtemQtdChaves(no234* no);
 
+no234** obtemFilhos(no234* no);
 //METODO DE IMPRESSAO DA BTREE
 
 void imprimeArvore234PorNivel(arvore234 *arv);
