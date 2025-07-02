@@ -29,6 +29,6 @@ void rotacaoDireita(rb *arv, noRB *noDesbalanceado);
 
 void rotacaoEsquerda(rb *arv, noRB *noDesbalanceado);
 
-noRB* converte234(no234* raiz234, noRB* pai);
+noRB* converte234(noB* raiz234, noRB* pai);
 
 #endif //RB_RB_H

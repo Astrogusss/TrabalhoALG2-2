@@ -7,7 +7,7 @@
 #include "Red-Black/RB.h"
 
 
-void menuArvore234(arvore234* arv234);
+void menuArvore234(arvoreB* arv234);
 void menuArvoreRB(rb* arvRB);
 
 
@@ -30,7 +30,7 @@ int main() {
     }
 
 
-    arvore234* arv234 = alocaArvore234();
+    arvoreB* arv234 = alocaArvB();
     while (fscanf(arq, "%d", &valor) != EOF) {
         insereChaveArvore(arv234, valor);
     }
@@ -51,13 +51,13 @@ int main() {
 /**
 
  */
-void menuArvore234(arvore234* arv234) {
+void menuArvore234(arvoreB* arv234) {
     int opcao, valor;
     
 
     rb* arvRB = NULL;
     noRB* raizRB = NULL;
-    no234* raiz234 = NULL;
+    noB* raiz234 = NULL;
 
     do {
         printf("--- Árvores Balanceadas : Menu (Árvore 2-3-4) ---\n");
@@ -99,7 +99,7 @@ void menuArvore234(arvore234* arv234) {
             case 4:
                 printf("Convertendo a árvore 2-3-4 em Rubro-Negra...\n");
 
-                raiz234 = obtemRaiz234(arv234);
+                raiz234 = raizB(arv234);
                 if (raiz234 && obtemQtdChaves(raiz234) > 0) {
             
                     arvRB = alocaArvore();

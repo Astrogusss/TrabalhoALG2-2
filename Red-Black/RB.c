@@ -335,14 +335,14 @@ void rotacaoEsquerda(rb *arv, noRB *noDesbalanceado){
     noDesbalanceado->pai = y;
 }
  
-noRB* converte234(no234* raiz234, noRB* pai){
+noRB* converte234(noB* raiz234, noRB* pai){
     if(raiz234 == NULL) return NULL;
 
     noRB* RaizRubro = NULL;
     
     int* chaves = obtemChaves(raiz234);
 
-    no234** filhos = obtemFilhos(raiz234);
+    noB** filhos = obtemFilhos(raiz234);
     
     int quantidadeKey = obtemQtdChaves(raiz234);
 

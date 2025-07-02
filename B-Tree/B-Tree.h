@@ -2,12 +2,12 @@
 #define ARVORE234
 
 //DECLARACAO DE VARIAVEIS GLOBAIS E DA FILA, USADADA PARA IMPRESSAO DA BTREE
-typedef struct arvore234 arvore234;
-typedef struct no234 no234;
+typedef struct arvoreB arvoreB;
+typedef struct noB noB;
 #define MAX_QUEUE_SIZE 1000 
 //utilizada para imprimir a b tree da melhor forma possivel
 typedef struct Fila {
-    no234* items[MAX_QUEUE_SIZE];
+    noB* items[MAX_QUEUE_SIZE];
     int frente;
     int tras;
     int tamanho;
@@ -15,67 +15,67 @@ typedef struct Fila {
 
 //Alocar árvore e nos
 
-arvore234* alocaArvore234();
+arvoreB* alocaArvB();
 
-no234* alocaNo234(int folha);
+noB* alocaNoB(int folha);
 
 // funcoes para inserção
 
-int preencheArvore234(arvore234* arv, char* nomeArquivo);
+int preencheArvB(arvoreB* arv, char* nomeArquivo);
 
-void insereChaveArvore(arvore234* arv, int chave);
+void insereChaveArvore(arvoreB* arv, int chave);
 
-void insereChaveArvoreAux(arvore234* arv, no234* noAtual, int chave);
+void insereChaveArvoreAux(arvoreB* arv, noB* noAtual, int chave);
 
-void insereChaveNo(no234* no, int chave);
+void insereChaveNo(noB* no, int chave);
 
-void reparaInsercao(arvore234* arv, no234* noAtual);
+void reparaInsercao(arvoreB* arv, noB* noAtual);
 
-no234* divideNo(arvore234* arv, no234* noCheio, no234* pai, int indicePai);
+noB* divideNo(arvoreB* arv, noB* noCheio, noB* pai, int indicePai);
 
 // funcoes de remocao
 
-void removeChaveArvore(arvore234 *arv, int chave);
+void removeChaveArvore(arvoreB *arv, int chave);
 
-void removeChaveArvoreAux(arvore234* arv, no234* noAtual, int chave);
+void removeChaveArvoreAux(arvoreB* arv, noB* noAtual, int chave);
 
-void removeChaveNo(no234* no, int chave);
+void removeChaveNo(noB* no, int chave);
 
-void reparaRemocao(arvore234* arv, no234* noAtual);
+void reparaRemocao(arvoreB* arv, noB* noAtual);
 
-no234* emprestaDireita(arvore234* arv, no234* pai, int index);
+noB* empDIR(arvoreB* arv, noB* pai, int index);
 
-no234* emprestaEsquerda(arvore234* arv, no234* pai, int index);
+noB* empESQ(arvoreB* arv, noB* pai, int index);
 
-no234* juntaNos(arvore234* arv, no234* pai, int index);
+noB* juntaNos(arvoreB* arv, noB* pai, int index);
 
 //FUNCOES UTILITARIAS
-no234* encontraPai(no234* raiz, no234* filho);
+noB* encontraPai(noB* raiz, noB* filho);
 
-int calculaAltura234(arvore234* arv);
+int AlturaB(arvoreB* arv);
 
-int obtemQtdNos(no234* raiz);
+int obtemQtdNos(noB* raiz);
 
-int obtemQtdRotacoes(arvore234* arv);
+int obtemQtdRotacoes(arvoreB* arv);
 
-no234* obtemRaiz234(arvore234* arv);
+noB* raizB(arvoreB* arv);
 
-int obtemQtdSplit(arvore234* arv);
+int obtemQtdSplit(arvoreB* arv);
 
-int obtemQtdMerge(arvore234* arv);
+int obtemQtdMerge(arvoreB* arv);
 
-int* obtemChaves(no234* no);
+int* obtemChaves(noB* no);
 
-int obtemQtdChaves(no234* no);
+int obtemQtdChaves(noB* no);
 
-no234** obtemFilhos(no234* no);
+noB** obtemFilhos(noB* no);
 //METODO DE IMPRESSAO DA BTREE
 
-void imprimeArvore234PorNivel(arvore234 *arv);
+void imprimeArvore234PorNivel(arvoreB *arv);
 void inicializaFila(Fila *f);
 int estaVazia(Fila *f);
 int estaCheia(Fila *f);
-void enfileirar(Fila *f, no234* no);
-no234* desenfileirar(Fila *f);
+void enfileirar(Fila *f, noB* no);
+noB* desenfileirar(Fila *f);
 
 #endif
