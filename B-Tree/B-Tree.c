@@ -24,6 +24,41 @@ struct no234{
     int folha;
 };
 
+void inicializaFila(Fila *f) {
+    f->frente = 0;
+    f->tras = -1;
+    f->tamanho = 0;
+}
+
+int estaVazia(Fila *f) {
+    return f->tamanho == 0;
+}
+
+int estaCheia(Fila *f) {
+    return f->tamanho == MAX_QUEUE_SIZE;
+}
+
+void enfileirar(Fila *f, no234* no) {
+    if (estaCheia(f)) {
+        printf("Fila cheia!\n");
+        return;
+    }
+    f->tras = (f->tras + 1) % MAX_QUEUE_SIZE;
+    f->items[f->tras] = no;
+    f->tamanho++;
+}
+
+no234* desenfileirar(Fila *f) {
+    if (estaVazia(f)) {
+        return NULL;
+    }
+    no234* no = f->items[f->frente];
+    f->frente = (f->frente + 1) % MAX_QUEUE_SIZE;
+    f->tamanho--;
+    return no;
+}
+
+
 //Alocar árvore e nos
 
 arvore234* alocaArvore234(){
@@ -466,69 +501,52 @@ int obtemQtdChaves(no234* no){
     return no->quantidadeKey;
 }
 
-void imprimePreOrdem234(arvore234* arv, no234* aux){
-    if(!aux) return;
-
-    printf("[");
-    for (int i = 0; i < aux->quantidadeKey; i++){
-        printf("%d", aux->chaves[i]);
-
-        if(i != aux->quantidadeKey - 1) printf(" | ");            
-    }
-    printf("]\n");
-
-    for(int i = 0; i <= aux->quantidadeKey; i++){
-        imprimePreOrdem234(arv, aux->filhos[i]);
-    }
-}
-
-void imprimeArvore234(arvore234 *arv){
+void imprimeArvore234PorNivel(arvore234 *arv) {
     no234* raiz = arv->raiz;
 
-    if(raiz == NULL){
-        printf("A arvore nao tem nó");
+    if (raiz == NULL) {
+        printf("A arvore nao tem no.\n");
         return;
     }
 
-    printf("[");
-    for(int i = 0; i < raiz->quantidadeKey; i++){
-        printf("%d", raiz->chaves[i]);
+    Fila fila;
+    inicializaFila(&fila);
+    enfileirar(&fila, raiz);
 
-        if(i < raiz->quantidadeKey - 1) 
-            printf(", ");
+    int nivelAtual = 0;
+    // Usamos um nó sentinela (NULL) para marcar o fim de cada nível
+    enfileirar(&fila, NULL); // Marca o fim do nível 0
+
+    printf("Nivel 0: ");
+
+    while (!estaVazia(&fila)) {
+        no234* no = desenfileirar(&fila);
+
+        if (no == NULL) {
+            if (!estaVazia(&fila)) { // Se ainda há nós na fila, significa que o próximo nível existe
+                nivelAtual++;
+                printf("\nNivel %d: ", nivelAtual);
+                enfileirar(&fila, NULL); // Marca o fim do próximo nível
+            }
+            continue;
+        }
+
+        printf("[");
+        for (int i = 0; i < no->quantidadeKey; i++) {
+            printf("%d", no->chaves[i]);
+            if (i < no->quantidadeKey - 1) {
+                printf(", ");
+            }
+        }
+        printf("] ");
+
+        if (!no->folha) {
+            for (int i = 0; i <= no->quantidadeKey; i++) {
+                if (no->filhos[i] != NULL) {
+                    enfileirar(&fila, no->filhos[i]);
+                }
+            }
+        }
     }
-    printf("]\n");
-
-    if(!raiz->folha){
-        for(int i = 0; i <= raiz->quantidadeKey; i++) 
-            imprimeNo234(raiz->filhos[i], "", i == raiz->quantidadeKey);
-    }
-}
-
-void imprimeNo234(no234* no, const char *prefixo, int is_last){
-    if(no == NULL) 
-        return;
-
-    printf("%s", prefixo);
-    printf(is_last ? "└── " : "├── ");
-    
-    printf("[");
-    for(int i = 0; i < no->quantidadeKey; i++){
-        printf("%d", no->chaves[i]);
-
-        if(i < no->quantidadeKey - 1)
-            printf(", ");
-    }
-    printf("]\n");
-
-    if(!no->folha){
-        char novoPrefixo[1024];
-        if(is_last)
-            snprintf(novoPrefixo, sizeof(novoPrefixo), "%s    ", prefixo);
-        else
-            snprintf(novoPrefixo, sizeof(novoPrefixo), "%s│   ", prefixo);
-
-        for(int i = 0; i <= no->quantidadeKey; i++) 
-            imprimeNo234(no->filhos[i], novoPrefixo, i == no->quantidadeKey);
-    }
+    printf("\n");
 }

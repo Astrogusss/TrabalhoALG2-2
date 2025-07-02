@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <windows.h>     
+//#include <windows.h>     
 
 #include "B-Tree/B-Tree.h"
 #include "Red-Black/RB.h"
@@ -13,7 +13,7 @@ void menuArvoreRB(rb* arvRB);
 
 int main() {
    
-    SetConsoleOutputCP(CP_UTF8);
+  //  SetConsoleOutputCP(CP_UTF8);
 
     FILE *arq;
     char nomeArquivo[100];
@@ -38,7 +38,7 @@ int main() {
 
 
     printf("\n--- Árvore 2-3-4 Gerada ---\n");
-    imprimeArvore234(arv234);
+    imprimeArvore234PorNivel(arv234);
     printf("\n");
 
     menuArvore234(arv234);
@@ -76,7 +76,7 @@ void menuArvore234(arvore234* arv234) {
                 scanf("%d", &valor);
                 insereChaveArvore(arv234, valor);
                 printf("Elemento inserido.\n\n");
-                imprimeArvore234(arv234);
+                imprimeArvore234PorNivel(arv234);
                 printf("\n");
                 break;
             
@@ -86,13 +86,13 @@ void menuArvore234(arvore234* arv234) {
                 scanf("%d", &valor);
                 removeChaveArvore(arv234, valor);
                 printf("Operação de remoção concluída.\n\n");
-                imprimeArvore234(arv234);
+                imprimeArvore234PorNivel(arv234);
                 printf("\n");
                 break;
 
             case 3:
                 printf("\n--- Árvore 2-3-4 Atual ---\n");
-                imprimeArvore234(arv234);
+                imprimeArvore234PorNivel(arv234);
                 printf("\n");
                 break;
 
