@@ -31,7 +31,7 @@ void testeDeInsercaoCSV() {
         int tam = tamanhos[i];
         printf("--> Testando insercao para %d elementos...\n", tam);
 
-        arvore234* arv = alocaArvore234();
+        arvoreB* arv = alocaArvore234();
         int* dados = geraAleatorios(tam, time(NULL) + i);
 
         if (dados == NULL || arv == NULL) {
@@ -74,7 +74,7 @@ void testeDeRemocaoCSV() {
         printf("--> Testando remocao de %.0f%%...\n", percentuais[i] * 100);
 
     
-        arvore234* arv = alocaArvore234();
+        arvoreB* arv = alocaArvore234();
         int* dados = geraAleatorios(TAMANHO_INICIAL, time(NULL) + i);
         if (dados == NULL || arv == NULL) {
             printf("    ERRO: Falha de alocacao para o teste de remocao.\n");
